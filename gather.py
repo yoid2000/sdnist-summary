@@ -2,6 +2,10 @@ import os
 import json
 import pytextable
 
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
+
+RES_PATH = "https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/"
 # If 'repo' is None, then product is considered proprietary
 methodInfo = {
     "aim": {"name":"AIM",
@@ -37,6 +41,11 @@ methodInfo = {
     "kanonymity": {"name":"K6-Anon",
             "repo":"https://github.com/sdcTools/sdcMicro",
             "cite":"templ2015statistical",
+            "web":None,
+            },
+    "pram": {"name":"pram",
+            "repo":"https://github.com/sdcTools/sdcMicro",
+            "cite":"meindl2019feedback",
             "web":None,
             },
     "MostlyAI SD": {"name":"MostlyAI",
@@ -94,9 +103,10 @@ keyOrder = [
     "Tumult",
     "Genetic",
     "K6-Anon",
+    "pram",
     "MostlyAI",
-    "MWEM+PGM",
-    "PATEGAN",
+    "mwem+pgm",
+    "Pategan",
     "CTGAN",
     "SMOTE",
     "Sample40",
@@ -105,7 +115,10 @@ keyOrder = [
 ]
 
 class ReportJsonReader:
-    def __init__(self, algData):
+    def __init__(self, resultsDir, dir):
+        resPath = os.path.join(resultsDir, dir, 'report.json')
+        with open(resPath, 'r') as f:
+            algData = json.load(f)
         self.algName = algData['data_description']['deid']['labels']['algorithm name']
         self.team = algData['data_description']['deid']['labels']['team']
         self.info = methodInfo[self.algName]
@@ -113,6 +126,7 @@ class ReportJsonReader:
         self.repo = self.info['repo']
         self.cite = self.info['cite']
         self.web = self.info['web']
+        self.dir_name = dir
         self.features = algData['data_description']['deid']['labels']['features list'].split(',')
         self.ncol = len(self.features)
         self.dp = True if algData['data_description']['deid']['labels']['privacy category'] == 'dp' else False
@@ -126,14 +140,11 @@ class GatherResults:
         self.algDirs = [d for d in os.listdir(self.resultsDir) if os.path.isdir(os.path.join(self.resultsDir, d))]
         self.res = {}
         for dir in self.algDirs:
-            resPath = os.path.join(self.resultsDir, dir, 'report.json')
-            with open(resPath, 'r') as f:
-                algData = json.load(f)
-            rjr = ReportJsonReader(algData)
+            rjr = ReportJsonReader(self.resultsDir, dir)
             self.res[rjr.name] = rjr
 
     def makeInfoTable(self):
-        header = ["Algorithm", "Columns", "Epsilon", "Cite", "More Info"]
+        header = ["Algorithm", "Cols", "$\\epsilon$", "SDNIST", "Cite", "Repo", "Web"]
         body = []
         for alg in keyOrder:
             rjr = self.res[alg]
@@ -141,25 +152,15 @@ class GatherResults:
             row.append(rjr.name)
             row.append(rjr.ncol)
             row.append(rjr.epsilon if rjr.epsilon is not None else '---')
-            row.append("\\cite{" + rjr.cite +"}" if rjr.cite is not None else '---')
-            if rjr.repo is None and rjr.web is None:
-                row.append('')
-                body.append(row)
-            elif rjr.repo is not None:
-                row.append("Code: \\small{\\url{" + rjr.repo + "}}")
-                body.append(row)
-                if rjr.web is not None:
-                    row = ['','','','', "URL: \\small{\\url{" + rjr.web + "}}"]
-                    body.append(row)
-            elif rjr.web is not None:
-                row.append("URL: \\small{\\url{" + rjr.web + "}}")
-                body.append(row)
+            row.append("\\href{" + RES_PATH + rjr.dir_name +"/report.html}{res}")
+            row.append("\\cite{" + rjr.cite +"}" if rjr.cite is not None else '')
+            row.append("\\href{" + rjr.repo +"}{repo}" if rjr.repo is not None else '')
+            row.append("\\href{" + rjr.web +"}{web}" if rjr.web is not None else '')
+            body.append(row)
         outPath = os.path.join(self.outDir, 'infoTable.tex')
         with open(outPath, 'w') as f:
-            f.write(pytextable.tostring(body, header=header))
+            f.write(pytextable.tostring(body, header=header, alignment='l'))
 
 if __name__ == "__main__":
-    import pprint
-    pp = pprint.PrettyPrinter(indent=4)
     gr = GatherResults('results', 'outputs')
     gr.makeInfoTable()
