@@ -1,29 +1,29 @@
 \begin{table}
     \centering
-    \caption{Summary table for Propensity MSE.}
+    \caption{Summary table for Propensity MSE and Inconsistencies.}
     \label{tab:pmse}
-    \begin{tabular}{llr@{\hskip 6pt}rl}
+    \begin{tabular}{llr@{\hskip 6pt}r@{\hskip 10pt}rrl}
         \toprule
-          &   & \multicolumn{2}{c}{PMSE (\S\ref{sec:pmse})} \\
+          &   & \multicolumn{2}{c}{PMSE (\S\ref{sec:pmse})} & \multicolumn{2}{c}{Inconsistencies (\S\ref{sec:inconsistencies})} \\
         
- & & pmse & imp \\
+ & & pmse & imp & count & imp \\
 \midrule
-        \cellcolor{blue} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/syndiffix_all/report.html}{SynDiffix} & 0.0859 & 1.0x \\
-        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/aindo_synth/report.html}{Aindo} & 0.0025 & -34.1x \\
-        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/anonos_sdk/report.html}{Anonos} & 0.0054 & -15.8x \\
-        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/mostlyai_sd_platform/report.html}{MostlyAI} & 0.0040 & -21.6x \\
-        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/ydata_fabric_synthesizers/report.html}{YData} & 0.0588 & -1.5x \\
-        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/sdv_ctgan_epochs1000/report.html}{CTGAN} & 0.0649 & -1.3x \\
-        \cellcolor{ForestGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/mwem_pgm/report.html}{mwem-pgm} & 0.0498 & -1.7x \\
-        \cellcolor{ForestGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/aim_e_10_all/report.html}{AIM} & 0.2412 & 2.8x \\
-        \cellcolor{ForestGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/pategan_n_iter_50_e_10_all/report.html}{Pategan} & 0.1670 & 1.9x \\
-        \cellcolor{YellowGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/genetic_sd_e_10_simple/report.html}{Genetic} & 0.0603 & -1.4x \\
-        \cellcolor{YellowGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/sarus_sdg_demographic/report.html}{Sarus} & 0.0098 & -8.7x \\
-        \cellcolor{SkyBlue} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/cart_cf21/report.html}{CART} & 0.0023 & -37.2x \\
-        \cellcolor{pink} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/k_anonymity_k_6/report.html}{K6-Anon} & 0.0184 & -4.7x \\
-        \cellcolor{Tan} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/pram_default/report.html}{PRAM} & 0.0093 & -9.3x \\
-        \cellcolor{Sepia} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/smote_target_marital/report.html}{SMOTE} & 0.0070 & -12.2x \\
-        \cellcolor{Sepia} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/subsample_40pcnt_all/report.html}{Sample40} & 0.0007 & -121.8x \\
+        \cellcolor{blue} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/syndiffix_all/report.html}{SynDiffix} & 0.0074 & 1.0x & 12 & 1.0x \\
+        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/aindo_synth/report.html}{Aindo} & 0.0025 & -2.9x & 21 & 1.8x \\
+        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/anonos_sdk/report.html}{Anonos} & 0.0054 & -1.4x & 0 & -10000.0x \\
+        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/mostlyai_sd_platform/report.html}{MostlyAI} & 0.0040 & -1.9x & 98 & 8.2x \\
+        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/ydata_fabric_synthesizers/report.html}{YData} & 0.0588 & 8.0x & 4 & -3.0x \\
+        \cellcolor{red} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/sdv_ctgan_epochs1000/report.html}{CTGAN} & 0.0649 & 8.8x & 5299 & 441.6x \\
+        \cellcolor{ForestGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/mwem_pgm/report.html}{mwem-pgm} & 0.0498 & 6.8x & 4 & -3.0x \\
+        \cellcolor{ForestGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/aim_e_10_all/report.html}{AIM} & 0.2412 & 32.8x & 7512 & 626.0x \\
+        \cellcolor{ForestGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/pategan_n_iter_50_e_10_all/report.html}{Pategan} & 0.1670 & 22.7x & 13423 & 1118.6x \\
+        \cellcolor{YellowGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/genetic_sd_e_10_simple/report.html}{Genetic} & 0.0603 & 8.2x & 0 & -10000.0x \\
+        \cellcolor{YellowGreen} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/sarus_sdg_demographic/report.html}{Sarus} & 0.0098 & 1.3x & 759 & 63.2x \\
+        \cellcolor{SkyBlue} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/cart_cf21/report.html}{CART} & 0.0023 & -3.2x & 5 & -2.4x \\
+        \cellcolor{pink} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/k_anonymity_k_6/report.html}{K6-Anon} & 0.0184 & 2.5x & 0 & -10000.0x \\
+        \cellcolor{Tan} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/pram_default/report.html}{PRAM} & 0.0093 & 1.3x & 2009 & 167.4x \\
+        \cellcolor{Sepia} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/smote_target_marital/report.html}{SMOTE} & 0.0070 & -1.0x & 363 & 30.2x \\
+        \cellcolor{Sepia} & \href{https://htmlpreview.github.io/?https://github.com/yoid2000/sdnist-summary/blob/main/results/subsample_40pcnt_all/report.html}{Sample40} & 0.0007 & -10.4x & 0 & -10000.0x \\
         \bottomrule
     \end{tabular}
 \end{table}

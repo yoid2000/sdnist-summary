@@ -1,5 +1,5 @@
 {
-    "Created on": "February 07, 2024 16:17:58",
+    "Created on": "February 19, 2024 15:02:38",
     "version": "2.3.0",
     "data_description": {
         "target": [
@@ -275,45 +275,45 @@
                         "data": [
                             {
                                 "Sub-Sample Size": "1%",
-                                "Sub-Sample K-Marginal Score": 559,
+                                "Sub-Sample K-Marginal Score": 558,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "397"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "398"
                             },
                             {
                                 "Sub-Sample Size": "5%",
-                                "Sub-Sample K-Marginal Score": 769,
+                                "Sub-Sample K-Marginal Score": 772,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "187"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "184"
                             },
                             {
                                 "Sub-Sample Size": "10%",
-                                "Sub-Sample K-Marginal Score": 841,
+                                "Sub-Sample K-Marginal Score": 836,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "115"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "120"
                             },
                             {
                                 "Sub-Sample Size": "20%",
-                                "Sub-Sample K-Marginal Score": 891,
+                                "Sub-Sample K-Marginal Score": 892,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "65"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "64"
                             },
                             {
                                 "Sub-Sample Size": "30%",
-                                "Sub-Sample K-Marginal Score": 915,
+                                "Sub-Sample K-Marginal Score": 916,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "41"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "40"
                             },
                             {
                                 "Sub-Sample Size": "40%",
-                                "Sub-Sample K-Marginal Score": 935,
+                                "Sub-Sample K-Marginal Score": 932,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "21"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "24"
                             },
                             {
                                 "Sub-Sample Size": "50%",
-                                "Sub-Sample K-Marginal Score": 945,
+                                "Sub-Sample K-Marginal Score": 946,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "11"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "10"
                             },
                             {
                                 "Sub-Sample Size": "60%",
@@ -324,9 +324,9 @@
                             },
                             {
                                 "Sub-Sample Size": "70%",
-                                "Sub-Sample K-Marginal Score": 964,
+                                "Sub-Sample K-Marginal Score": 965,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "8"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "9"
                             },
                             {
                                 "Sub-Sample Size": "80%",
@@ -336,9 +336,9 @@
                             },
                             {
                                 "Sub-Sample Size": "90%",
-                                "Sub-Sample K-Marginal Score": 981,
+                                "Sub-Sample K-Marginal Score": 982,
                                 "Deidentified Data K-marginal score": 956,
-                                "Absolute Diff. From Deidentified Data K-marginal Score": "25"
+                                "Absolute Diff. From Deidentified Data K-marginal Score": "26"
                             }
                         ],
                         "type": "table",
@@ -359,7 +359,7 @@
                                     "Birmingham City (West)",
                                     "https://censusreporter.org/profiles/79500US0101301-birmingham-city-west-puma-al/"
                                 ],
-                                "40% Target Subsample Baseline": 809,
+                                "40% Target Subsample Baseline": 819,
                                 "Deidentified Data Score": 857
                             },
                             {
@@ -368,7 +368,7 @@
                                     "Chicago City (South)--Auburn Gresham, Roseland, Chatham, Avalon Park & Burnside",
                                     "https://censusreporter.org/profiles/79500US1703531-chicago-city-south-auburn-gresham-roseland-chatham-avalon-park-burnside-puma-il/"
                                 ],
-                                "40% Target Subsample Baseline": 832,
+                                "40% Target Subsample Baseline": 838,
                                 "Deidentified Data Score": 880
                             },
                             {
@@ -377,7 +377,7 @@
                                     "NYC-Bronx Community District 1 & 2--Hunts Point, Longwood & Melrose",
                                     "https://censusreporter.org/profiles/79500US3603710-nyc-bronx-community-district-1-2-hunts-point-longwood-melrose-puma-ny/"
                                 ],
-                                "40% Target Subsample Baseline": 831,
+                                "40% Target Subsample Baseline": 835,
                                 "Deidentified Data Score": 882
                             },
                             {
@@ -386,7 +386,7 @@
                                     "St. Louis City (North)",
                                     "https://censusreporter.org/profiles/79500US2901901-st-louis-city-north-puma-mo/"
                                 ],
-                                "40% Target Subsample Baseline": 838,
+                                "40% Target Subsample Baseline": 848,
                                 "Deidentified Data Score": 886
                             },
                             {
@@ -395,7 +395,7 @@
                                     "San Francisco County (North & East)--North Beach & Chinatown",
                                     "https://censusreporter.org/profiles/79500US0607502-san-francisco-county-north-east-north-beach-chinatown-puma-ca/"
                                 ],
-                                "40% Target Subsample Baseline": 855,
+                                "40% Target Subsample Baseline": 853,
                                 "Deidentified Data Score": 896
                             },
                             {
@@ -404,7 +404,7 @@
                                     "NYC-Brooklyn Community District 17--East Flatbush, Farragut & Rugby",
                                     "https://censusreporter.org/profiles/79500US3604010-nyc-brooklyn-community-district-17-east-flatbush-farragut-rugby-puma-ny/"
                                 ],
-                                "40% Target Subsample Baseline": 854,
+                                "40% Target Subsample Baseline": 853,
                                 "Deidentified Data Score": 898
                             },
                             {
@@ -422,7 +422,7 @@
                                     "Central Region--Jackson City (East & Central)",
                                     "https://censusreporter.org/profiles/79500US2801100-central-region-jackson-city-east-central-puma-ms/"
                                 ],
-                                "40% Target Subsample Baseline": 845,
+                                "40% Target Subsample Baseline": 856,
                                 "Deidentified Data Score": 900
                             },
                             {
@@ -440,7 +440,7 @@
                                     "Atlanta Regional Commission--Fulton County (Central)--Atlanta City (Central)",
                                     "https://censusreporter.org/profiles/79500US1304600-atlanta-regional-commission-fulton-county-central-atlanta-city-central-puma-ga/"
                                 ],
-                                "40% Target Subsample Baseline": 857,
+                                "40% Target Subsample Baseline": 859,
                                 "Deidentified Data Score": 904
                             },
                             {
@@ -449,7 +449,7 @@
                                     "Des Moines City",
                                     "https://censusreporter.org/profiles/79500US1901700-des-moines-city-puma-ia/"
                                 ],
-                                "40% Target Subsample Baseline": 864,
+                                "40% Target Subsample Baseline": 853,
                                 "Deidentified Data Score": 905
                             },
                             {
@@ -458,7 +458,7 @@
                                     "Las Vegas City (Southeast)",
                                     "https://censusreporter.org/profiles/79500US3200405-las-vegas-city-southeast-puma-nv/"
                                 ],
-                                "40% Target Subsample Baseline": 857,
+                                "40% Target Subsample Baseline": 851,
                                 "Deidentified Data Score": 905
                             },
                             {
@@ -467,7 +467,7 @@
                                     "Boulder County (Central)--Boulder City",
                                     "https://censusreporter.org/profiles/79500US0800803-boulder-county-central-boulder-city-puma-co/"
                                 ],
-                                "40% Target Subsample Baseline": 873,
+                                "40% Target Subsample Baseline": 862,
                                 "Deidentified Data Score": 913
                             },
                             {
@@ -476,7 +476,7 @@
                                     "Chicago City (South)--South Shore, Hyde Park, Woodlawn, Grand Boulevard & Douglas",
                                     "https://censusreporter.org/profiles/79500US1703529-chicago-city-south-south-shore-hyde-park-woodlawn-grand-boulevard-douglas-puma-il/"
                                 ],
-                                "40% Target Subsample Baseline": 869,
+                                "40% Target Subsample Baseline": 872,
                                 "Deidentified Data Score": 914
                             },
                             {
@@ -485,7 +485,7 @@
                                     "Arlington County (North)",
                                     "https://censusreporter.org/profiles/79500US5101301-arlington-county-north-puma-va/"
                                 ],
-                                "40% Target Subsample Baseline": 864,
+                                "40% Target Subsample Baseline": 855,
                                 "Deidentified Data Score": 915
                             },
                             {
@@ -494,7 +494,7 @@
                                     "Alexandria City",
                                     "https://censusreporter.org/profiles/79500US5151255-alexandria-city-puma-va/"
                                 ],
-                                "40% Target Subsample Baseline": 880,
+                                "40% Target Subsample Baseline": 870,
                                 "Deidentified Data Score": 921
                             },
                             {
@@ -503,7 +503,7 @@
                                     "East Montana (Outside Billings City)",
                                     "https://censusreporter.org/profiles/79500US3000600-east-montana-outside-billings-city-puma-mt/"
                                 ],
-                                "40% Target Subsample Baseline": 878,
+                                "40% Target Subsample Baseline": 881,
                                 "Deidentified Data Score": 928
                             },
                             {
@@ -512,7 +512,7 @@
                                     "Santa Clara County (Southwest)--Cupertino, Saratoga Cities & Los Gatos Town",
                                     "https://censusreporter.org/profiles/79500US0608507-santa-clara-county-southwest-cupertino-saratoga-cities-los-gatos-town-puma-ca/"
                                 ],
-                                "40% Target Subsample Baseline": 885,
+                                "40% Target Subsample Baseline": 890,
                                 "Deidentified Data Score": 929
                             },
                             {
@@ -521,7 +521,7 @@
                                     "West North Dakota--Minot City",
                                     "https://censusreporter.org/profiles/79500US3800100-west-north-dakota-minot-city-puma-nd/"
                                 ],
-                                "40% Target Subsample Baseline": 886,
+                                "40% Target Subsample Baseline": 888,
                                 "Deidentified Data Score": 935
                             },
                             {
@@ -1451,7 +1451,7 @@
                     },
                     {
                         "name": null,
-                        "data": "Highlight-Score: 0.086",
+                        "data": "Highlight-Score: 0.001",
                         "type": "string",
                         "dotted_break": false
                     },
@@ -1689,7 +1689,7 @@
                                     "Birmingham City (West)",
                                     "https://censusreporter.org/profiles/79500US0101301-birmingham-city-west-puma-al/"
                                 ],
-                                "40% Target Subsample Baseline": 809,
+                                "40% Target Subsample Baseline": 819,
                                 "Deidentified Data Score": 857
                             },
                             {
@@ -1698,7 +1698,7 @@
                                     "Chicago City (South)--Auburn Gresham, Roseland, Chatham, Avalon Park & Burnside",
                                     "https://censusreporter.org/profiles/79500US1703531-chicago-city-south-auburn-gresham-roseland-chatham-avalon-park-burnside-puma-il/"
                                 ],
-                                "40% Target Subsample Baseline": 832,
+                                "40% Target Subsample Baseline": 838,
                                 "Deidentified Data Score": 880
                             },
                             {
@@ -1707,7 +1707,7 @@
                                     "NYC-Bronx Community District 1 & 2--Hunts Point, Longwood & Melrose",
                                     "https://censusreporter.org/profiles/79500US3603710-nyc-bronx-community-district-1-2-hunts-point-longwood-melrose-puma-ny/"
                                 ],
-                                "40% Target Subsample Baseline": 831,
+                                "40% Target Subsample Baseline": 835,
                                 "Deidentified Data Score": 882
                             },
                             {
@@ -1716,7 +1716,7 @@
                                     "St. Louis City (North)",
                                     "https://censusreporter.org/profiles/79500US2901901-st-louis-city-north-puma-mo/"
                                 ],
-                                "40% Target Subsample Baseline": 838,
+                                "40% Target Subsample Baseline": 848,
                                 "Deidentified Data Score": 886
                             },
                             {
@@ -1725,7 +1725,7 @@
                                     "San Francisco County (North & East)--North Beach & Chinatown",
                                     "https://censusreporter.org/profiles/79500US0607502-san-francisco-county-north-east-north-beach-chinatown-puma-ca/"
                                 ],
-                                "40% Target Subsample Baseline": 855,
+                                "40% Target Subsample Baseline": 853,
                                 "Deidentified Data Score": 896
                             }
                         ],
@@ -1888,7 +1888,7 @@
                     },
                     {
                         "name": null,
-                        "data": "EDU, SEX, RAC1P, PUMA, OWN_RENT, INDP_CAT, HISP, MSP",
+                        "data": "PUMA, INDP_CAT, RAC1P, SEX, MSP, OWN_RENT, HISP, EDU",
                         "type": "string",
                         "dotted_break": false
                     },

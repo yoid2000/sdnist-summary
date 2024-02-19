@@ -591,7 +591,8 @@
         }
     },
     "propensity mean square error": {
-        "pmse_score": 0.08590158531426127,
+        "pmse_score": 0.0006837057694346677,
+        "full_pmse_score": 0.08590158531426127,
         "propensity_distribution": "propensity/propensity_distribution.csv",
         "plot": "propensity/propensity_distribution.jpg"
     },
@@ -794,5 +795,5 @@
         "unique_matched_percents": "apparent_match_distribution/unique_matched_percents.csv",
         "plot": "apparent_match_distribution/apparent_match_distribution.jpg"
     },
-    "created_on": "February 07, 2024 16:17:58"
+    "created_on": "February 19, 2024 15:02:38"
 }

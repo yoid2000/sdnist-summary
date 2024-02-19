@@ -271,6 +271,13 @@ class ReportJsonReader:
         self.triple_score = self.algData['k_marginal']['k_marginal_synopsys']['k_marginal_score']
         self._get_regression_stats()
         self.pmse = self.algData['propensity mean square error']['pmse_score']
+        self._get_inconsistency_count()
+
+    def _get_inconsistency_count(self):
+        self.inconsistency_count = 0
+        for item in self.algData['inconsistencies']['summary']:
+            self.inconsistency_count += item['Number of Records Inconsistent']
+        self.inconsistency_percent = self.inconsistency_count / self.nrows
     
     def _get_regression_stats(self):
         reg_info = {'total_population':{'label':'all', 'count':23006},
@@ -359,11 +366,18 @@ class ReportJsonReader:
 
 def _fi(this, syndiffix):
     # returns a positive improvement factor if syndiffix better than (<) this,
-    # otherwise returns a negative improvement factor
+    # otherwise returns a negative improvement factor. Assumes an improvement
+    # factor of 10000 if otherwise infinity (divide by 0)
     if syndiffix <= this:
-        return this / syndiffix
+        if syndiffix != 0:
+            return this / syndiffix
+        else:
+            return 10000
     else:
-        return -1 * (syndiffix / this)
+        if this != 0:
+            return -1 * (syndiffix / this)
+        else:
+            return -10000
 
 class GatherResults:
     def __init__(self, resultsDir, outDir):
@@ -498,11 +512,12 @@ class GatherResults:
     def makePmseTable(self):
         header = [" "," ",
                   "\\multicolumn{2}{c}{PMSE (\\S\\ref{sec:pmse})}",
+                  "\\multicolumn{2}{c}{Inconsistencies (\\S\\ref{sec:inconsistencies})}",
                   ]
-        addHeader = " & & pmse & imp \\\\"
-        alignReplace = ['lll', 'llr@{\hskip 6pt}r']
+        addHeader = " & & pmse & imp & count & imp \\\\"
+        alignReplace = ['lllll', 'llr@{\hskip 6pt}r@{\hskip 10pt}rr']
         label="tab:pmse"
-        caption="Summary table for Propensity MSE."
+        caption="Summary table for Propensity MSE and Inconsistencies."
         body = []
         for alg in keyOrder:
             rjr = self.res[alg]
@@ -513,6 +528,11 @@ class GatherResults:
             row.append(f"{rjr.pmse:.4f}")
             syndiffix_gap = self.res['SynDiffix'].pmse - 0
             this_gap = rjr.pmse - 0
+            improve = _fi(this_gap, syndiffix_gap)
+            row.append(f"{improve:.1f}x")
+            row.append(f"{rjr.inconsistency_count}")
+            syndiffix_gap = self.res['SynDiffix'].inconsistency_count - 0
+            this_gap = rjr.inconsistency_count - 0
             improve = _fi(this_gap, syndiffix_gap)
             row.append(f"{improve:.1f}x")
 
