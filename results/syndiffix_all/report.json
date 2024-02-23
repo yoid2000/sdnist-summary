@@ -591,7 +591,7 @@
         }
     },
     "propensity mean square error": {
-        "pmse_score": 0.0006837057694346677,
+        "pmse_score": 0.0009703997140367271,
         "full_pmse_score": 0.08590158531426127,
         "propensity_distribution": "propensity/propensity_distribution.csv",
         "plot": "propensity/propensity_distribution.jpg"
@@ -793,7 +793,99 @@
     },
     "apparent_match_distribution": {
         "unique_matched_percents": "apparent_match_distribution/unique_matched_percents.csv",
-        "plot": "apparent_match_distribution/apparent_match_distribution.jpg"
+        "plot": "apparent_match_distribution/apparent_match_distribution.jpg",
+        "query_unique_matches": {
+            "PWGTP": {
+                "matches": 10,
+                "unique_quasi_identifiers": 993,
+                "percent": 0.010070493454179255
+            },
+            "AGEP": {
+                "matches": 115,
+                "unique_quasi_identifiers": 943,
+                "percent": 0.12195121951219512
+            },
+            "DPHY": {
+                "matches": 698,
+                "unique_quasi_identifiers": 825,
+                "percent": 0.8460606060606061
+            },
+            "HOUSING_TYPE": {
+                "matches": 1162,
+                "unique_quasi_identifiers": 1184,
+                "percent": 0.981418918918919
+            },
+            "POVPIP": {
+                "matches": 227,
+                "unique_quasi_identifiers": 858,
+                "percent": 0.26456876456876455
+            },
+            "NOC": {
+                "matches": 356,
+                "unique_quasi_identifiers": 581,
+                "percent": 0.612736660929432
+            },
+            "PINCP": {
+                "matches": 78,
+                "unique_quasi_identifiers": 794,
+                "percent": 0.0982367758186398
+            },
+            "DEAR": {
+                "matches": 1045,
+                "unique_quasi_identifiers": 1117,
+                "percent": 0.9355416293643688
+            },
+            "INDP": {
+                "matches": 323,
+                "unique_quasi_identifiers": 751,
+                "percent": 0.43009320905459386
+            },
+            "DREM": {
+                "matches": 660,
+                "unique_quasi_identifiers": 744,
+                "percent": 0.8870967741935484
+            },
+            "WGTP": {
+                "matches": 61,
+                "unique_quasi_identifiers": 1212,
+                "percent": 0.05033003300330033
+            },
+            "NPF": {
+                "matches": 343,
+                "unique_quasi_identifiers": 855,
+                "percent": 0.40116959064327484
+            },
+            "PINCP_DECILE": {
+                "matches": 220,
+                "unique_quasi_identifiers": 785,
+                "percent": 0.2802547770700637
+            },
+            "DEYE": {
+                "matches": 1079,
+                "unique_quasi_identifiers": 1115,
+                "percent": 0.967713004484305
+            },
+            "DENSITY": {
+                "matches": 658,
+                "unique_quasi_identifiers": 688,
+                "percent": 0.9563953488372093
+            },
+            "DVET": {
+                "matches": 516,
+                "unique_quasi_identifiers": 531,
+                "percent": 0.9717514124293786
+            }
+        },
+        "quasi_identifiers": [
+            "EDU",
+            "OWN_RENT",
+            "RAC1P",
+            "SEX",
+            "PUMA",
+            "INDP_CAT",
+            "MSP",
+            "HISP"
+        ]
     },
-    "created_on": "February 19, 2024 15:02:38"
+    "created_on": "February 20, 2024 14:34:05"
 }

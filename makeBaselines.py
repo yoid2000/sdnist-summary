@@ -8,12 +8,11 @@ import numpy as np
 import pandas as pd
 import pprint
 import json
-import os
 
 pp = pprint.PrettyPrinter(indent=4)
 
 catCols = ['SEX', 'HISP', 'EDU', 'OWN_RENT', 'RAC1P', 'INDP_CAT', 'MSP', 'PUMA',
-'INDP', 'PINCP', 'WGTP', 'DPHY', 'DEYE', 'DEAR', 'NOC', 'PWGTP', 'DVET', 'DENSITY', 'NPF', 'POVPIP', 'HOUSING_TYPE', 'PINCP_DECILE', 'DREM',]
+'INDP', 'PINCP', 'WGTP', 'DPHY', 'DEYE', 'DEAR', 'NOC', 'PWGTP', 'DVET', 'NPF', 'POVPIP', 'HOUSING_TYPE', 'PINCP_DECILE', 'DREM', 'DENSITY']
 numCols = ['AGEP']
 quasi_identifiers = ['SEX', 'HISP', 'EDU', 'OWN_RENT', 'RAC1P', 'INDP_CAT', 'MSP', 'PUMA']
 targets = ['INDP', 'PINCP', 'WGTP', 'DPHY', 'DEYE', 'DEAR', 'NOC', 'PWGTP', 'DVET', 'DENSITY', 'NPF', 'POVPIP', 'HOUSING_TYPE', 'PINCP_DECILE', 'AGEP', 'DREM',]
@@ -36,15 +35,11 @@ def convert_to_numpy(var):
         print("The input is neither a pandas Series nor a numpy array.")
         return None
 
-def makeModel(dataset, target, df, max_iter=100):
-    fileBaseName = dataset + target
-    targetType, nums, cats, drops = categorize_columns(df, target)
-    # Assuming df is your DataFrame and 'target' is the column you want to predict
-    X = df.drop(target, axis=1)
-    y = df[target]
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=10)
+def runModel(X, y, nums, cats, targetType, max_iter=100):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
     # Create a column transformer
+    print(f"cats = {cats}")
+    print(f"nums = {nums}")
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', StandardScaler(), nums),
@@ -61,12 +56,29 @@ def makeModel(dataset, target, df, max_iter=100):
 
     # Fit the pipeline to the training data
     pipe.fit(X_train, y_train)
-
-    # Use Logistic Regression with L1 penalty for feature selection and model building
-    #model = LogisticRegression(penalty='l1', solver='liblinear')
-    #model.fit(X_train, y_train)
-
-    return pipe
+    y_pred = pipe.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"accuracy = {accuracy}")
+    return accuracy
 
 if __name__ == "__main__":
-    pass
+    df_all = pd.read_csv('national2019.csv')
+    # We just treat all columns as categorical
+    df_all = df_all.astype('string')
+    baselines = {}
+    for target in targets:
+        test_cols = quasi_identifiers + [target]
+        cats = quasi_identifiers.copy()
+        nums = []
+        #targetType = 'num' if target in numCols else 'cat'
+        targetType = 'cat'
+        df = df_all[test_cols]
+        X = df.drop(target, axis=1)
+        y = df[target]
+        print(f"Test columns {X.columns}")
+        print(f"Target column {target}")
+        print(y.value_counts())
+        accuracy = runModel(X, y, nums, cats, targetType)
+        baselines[target] = accuracy
+        with open('baselines.json', 'w') as f:
+            json.dump(baselines, f, indent=4)
