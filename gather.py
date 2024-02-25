@@ -127,6 +127,13 @@ methodInfo = {
             "org":"Open Diffix",
             "tech":"Anonymous decision trees",
             },
+    "SynDiffix: Single-table": {"name":"sdx-single",
+            "repo":"https://github.com/diffix/syndiffix",
+            "cite":"francis2023syndiffix",
+            "web":"https://www.open-diffix.org/",
+            "org":"Open Diffix",
+            "tech":"Anonymous decision trees",
+            },
     "YData Fabric Synthesizers": {"name":"YData",
             "repo":"https://github.com/ydataai/ydata-synthetic",
             "cite":None,
@@ -138,6 +145,7 @@ methodInfo = {
 
 keyOrder = [
     "SynDiffix",
+    "sdx-single",
     "Aindo",
     "Anonos",
     "MostlyAI",
@@ -172,6 +180,7 @@ Dark brown: #B15928
 
 pltColors = {
     "SynDiffix": "blue",
+    "sdx-single": "blue",
     "Aindo": "red",
     "Anonos": "red",
     "MostlyAI": "red",
@@ -191,6 +200,7 @@ pltColors = {
 
 dashes = {
     "SynDiffix": (0,()),
+    "sdx-single": (0,(3,3)),
     "Aindo": (0,()),
     "Anonos": (0,(3,3)),
     "MostlyAI": (0,(1,1)),
@@ -210,6 +220,7 @@ dashes = {
 
 latexColors = {
     "SynDiffix": "blue",
+    "sdx-single": "blue",
     "Aindo": "red",
     "Anonos": "red",
     "MostlyAI": "red",
@@ -230,6 +241,7 @@ latexColors = {
 
 markers = {
     "SynDiffix": "o",
+    "sdx-single": "x",
     "Aindo": ",",
     "Anonos": "v",
     "MostlyAI": "^",
