@@ -28,6 +28,7 @@ methodInfo = {
             "web":"https://opendp.org/",
             "org":"OpenDP",
             "tech":"Workload adaptive + DP",
+            "tabs":1,
             },
     "aindo-synth": {"name":"Aindo",
             "repo":None,
@@ -35,6 +36,7 @@ methodInfo = {
             "web":"https://www.aindo.com/",
             "org":"Aindo",
             "tech":"Generative model",
+            "tabs":1,
             },
     "Anonos Data Embassy SDK": {"name":"Anonos",
             "repo":None,
@@ -42,6 +44,7 @@ methodInfo = {
             "web":"https://www.anonos.com/",
             "org":"Anonos",
             "tech":"Generative model",
+            "tabs":1,
             },
     "cart": {"name":"CART",
             "repo":"https://CRAN.R-project.org/package=synthpop",
@@ -49,6 +52,7 @@ methodInfo = {
             "web":"https://synthpop.org.uk/",
             "org":"Synthpop",
             "tech":"Decision trees",
+            "tabs":1,
             },
     "Genetic SD": {"name":"Genetic",
             "repo":"https://github.com/giusevtr/private_gsd",
@@ -56,6 +60,7 @@ methodInfo = {
             "web":"https://github.com/giusevtr/private_gsd",
             "org":"See pub",
             "tech":"Approximate DP",
+            "tabs":1,
             },
     "kanonymity": {"name":"K6-Anon",
             "repo":"https://github.com/sdcTools/sdcMicro",
@@ -63,6 +68,7 @@ methodInfo = {
             "web":"https://github.com/sdcTools/sdcMicro",
             "org":"sdcMicro",
             "tech":"K-anonymity",
+            "tabs":1,
             },
     "pram": {"name":"PRAM",
             "repo":"https://github.com/sdcTools/sdcMicro",
@@ -70,6 +76,7 @@ methodInfo = {
             "web":"https://github.com/sdcTools/sdcMicro",
             "org":"sdcMicro",
             "tech":"Random value changes",
+            "tabs":1,
             },
     "MostlyAI SD": {"name":"MostlyAI",
             "repo":None,
@@ -77,6 +84,7 @@ methodInfo = {
             "web":"https://mostly.ai/",
             "org":"MostlyAI",
             "tech":"Generative model",
+            "tabs":1,
             },
     "MWEM+PGM": {"name":"mwem-pgm",
             "repo":None,
@@ -84,6 +92,7 @@ methodInfo = {
             "web":"https://dream.cs.umass.edu/",
             "org":"See pub",
             "tech":"Graphical models + DP",
+            "tabs":1,
             },
     "pategan": {"name":"Pategan",
             "repo":"https://github.com/PerceptionLab-DurhamUniversity/pategan",
@@ -91,6 +100,7 @@ methodInfo = {
             "web":"https://github.com/PerceptionLab-DurhamUniversity/pategan",
             "org":"See pub",
             "tech":"Generative model + DP",
+            "tabs":1,
             },
     "Sarus SDG": {"name":"Sarus",
             "repo":None,
@@ -98,6 +108,7 @@ methodInfo = {
             "web":"https://www.sarus.tech/",
             "org":"Sarus",
             "tech":"Generative model + DP",
+            "tabs":1,
             },
     "ctgan": {"name":"CTGAN",
             "repo":"https://github.com/sdv-dev/SDV",
@@ -105,6 +116,7 @@ methodInfo = {
             "web":"https://sdv.dev/",
             "org":"SDV",
             "tech":"Generative model",
+            "tabs":1,
             },
     "smote": {"name":"SMOTE",
             "repo":"https://github.com/ut-dallas-dspl-lab/AI-Fairness",
@@ -112,6 +124,7 @@ methodInfo = {
             "web":"https://github.com/ut-dallas-dspl-lab/AI-Fairness",
             "org":"See pub",
             "tech":"Minority oversampling",
+            "tabs":1,
             },
     "subsample_40pcnt": {"name":"Sample40",
             "repo":None,
@@ -119,20 +132,23 @@ methodInfo = {
             "web":"https://www.census.gov/content/dam/Census/library/publications/2021/acs/acs_pums_handbook_2021_ch01.pdf",
             "org":"US Census",
             "tech":"Simple sampling",
+            "tabs":1,
             },
     "SynDiffix": {"name":"SynDiffix",
             "repo":"https://github.com/diffix/syndiffix",
             "cite":"francis2023syndiffix",
             "web":"https://www.open-diffix.org/",
             "org":"Open Diffix",
-            "tech":"Anonymous decision trees",
+            "tech":"K-dimension search trees",
+            "tabs":455,
             },
     "SynDiffix: Single-table": {"name":"sdx-single",
             "repo":"https://github.com/diffix/syndiffix",
             "cite":"francis2023syndiffix",
             "web":"https://www.open-diffix.org/",
             "org":"Open Diffix",
-            "tech":"Anonymous decision trees",
+            "tech":"K-dimension search trees",
+            "tabs":1,
             },
     "YData Fabric Synthesizers": {"name":"YData",
             "repo":"https://github.com/ydataai/ydata-synthetic",
@@ -140,6 +156,7 @@ methodInfo = {
             "web":"https://ydata.ai/",
             "org":"YData",
             "tech":"Generative model",
+            "tabs":1,
             },
 }
 
@@ -149,8 +166,8 @@ keyOrder = [
     "Aindo",
     "Anonos",
     "MostlyAI",
-    "YData",
     "CTGAN",
+    "YData",
     "mwem-pgm",
     "AIM",
     "Pategan",
@@ -184,17 +201,17 @@ pltColors = {
     "Aindo": "red",
     "Anonos": "red",
     "MostlyAI": "red",
-    "YData": "red",
     "CTGAN": "red",
+    "YData": "pink",
     "mwem-pgm": "ForestGreen",
     "AIM": "ForestGreen",
     "Pategan": "ForestGreen",
     "Genetic": "YellowGreen",
     "Sarus": "YellowGreen",
     "CART": "SkyBlue",
-    "K6-Anon": "pink",
-    "PRAM": "Tan",
-    "SMOTE": "indigo",
+    "K6-Anon": "coral",
+    "PRAM": "gold",
+    "SMOTE": "tan",
     "Sample40": "indigo",
 }
 
@@ -224,20 +241,19 @@ latexColors = {
     "Aindo": "red",
     "Anonos": "red",
     "MostlyAI": "red",
-    "YData": "red",
     "CTGAN": "red",
+    "YData": "pink",
     "mwem-pgm": "ForestGreen",
     "AIM": "ForestGreen",
     "Pategan": "ForestGreen",
     "Genetic": "YellowGreen",
     "Sarus": "YellowGreen",
     "CART": "SkyBlue",
-    "K6-Anon": "pink",
-    "PRAM": "Tan",
-    "SMOTE": "Sepia",
+    "K6-Anon": "Salmon",
+    "PRAM": "Goldenrod",
+    "SMOTE": "Tan",
     "Sample40": "Sepia",
 }
-
 
 markers = {
     "SynDiffix": "o",
@@ -258,6 +274,23 @@ markers = {
     "SMOTE": "+",
     "Sample40": "x",
 }
+
+weak_anon = [
+    "YData",   
+    "PRAM",   
+    "SMOTE",   
+    "Sample40",   
+]
+
+few_columns = [
+    "Genetic",  
+    "Sarus",  
+    "CART",  
+    "K6-Anon",
+    "PRAM",  
+]
+
+skip_method = weak_anon + few_columns
 
 class ImageCompare:
     def __init__(self, tag, img_path_orig, img_path_pred):
@@ -310,6 +343,7 @@ class ReportJsonReader:
         self.cite = self.info['cite']
         self.web = self.info['web']
         self.tech = self.info['tech']
+        self.tabs = self.info['tabs']
         self.org = self.info['org']
         self.dir_name = dir
         self.features = self.algData['data_description']['deid']['labels']['features list'].split(',')
@@ -469,6 +503,7 @@ class ReportJsonReader:
         for target_column, stats in self.qum.items():
             qi_matches.append(stats['unique_quasi_identifiers'])
         self.avg_qi_matches = sum(qi_matches) / len(qi_matches)
+        self.median_qi_matches = statistics.median(qi_matches)
         for target_column, stats in self.qum.items():
             if self.avg_qi_matches > 0 and self.baselines[target_column] != 1.0:
                 pi = ((stats['percent'] - self.baselines[target_column]) / 
@@ -642,13 +677,13 @@ class GatherResults:
         triple_equivs = []
         triple_score_labels = []
         colors = []
-        syndiffix_corr_gap = self.res['SynDiffix'].corr_mean - 0
+        syndiffix_corr_gap = self.res['SynDiffix'].corr_median - 0
         syndiffix_triple_gap = 100 - self.res['SynDiffix'].sampling_equiv
         for alg in keyOrder:
             rjr = self.res[alg]
             labels.append(alg)
             corr_values.append(rjr.corr_diffs)
-            this_corr_gap = rjr.corr_mean - 0
+            this_corr_gap = rjr.corr_median - 0
             corr_improve = _fi(this_corr_gap, syndiffix_corr_gap)
             self.corr_improve.append(corr_improve)
             corr_improve_labels.append(f"{corr_improve:.1f}x")
@@ -718,13 +753,13 @@ class GatherResults:
         self.uni_improve = []
         abs_values = []
         comp_values = []
-        syndiffix_gap = self.res['SynDiffix'].uni_mean_comp_error - 0
+        syndiffix_gap = self.res['SynDiffix'].uni_median_comp_error - 0
         for alg in keyOrder:
             rjr = self.res[alg]
             labels.append(alg)
             abs_values.append(rjr.uni_abs_error)
             comp_values.append(rjr.uni_comp_error)
-            this_gap = rjr.uni_mean_comp_error - 0
+            this_gap = rjr.uni_median_comp_error - 0
             improve = _fi(this_gap, syndiffix_gap)
             self.uni_improve.append(improve)
             improve_labels.append(f"{improve:.1f}x")
@@ -819,7 +854,7 @@ class GatherResults:
                   "\\multicolumn{3}{c}{Correlation (\\S\\ref{sec:pairs})}",
                   "\\multicolumn{4}{c}{3-marginals (\\S\\ref{sec:triples})}",
                   ]
-        addHeader = " & & N & mean & imp & N & mean & imp & score & imp & samp & imp \\\\"
+        addHeader = " & & N & med & imp & N & med & imp & score & imp & samp & imp \\\\"
         alignReplace = ['llllllllllll', 'llrlr@{\hskip 10pt}r@{\hskip 6pt}l@{\hskip 6pt}r@{\hskip 10pt}r@{\hskip 6pt}r@{\hskip 6pt}r@{\hskip 6pt}r']
         label="tab:accuracy"
         caption="Summary table for low-dimensional accuracy measures."
@@ -831,16 +866,16 @@ class GatherResults:
             row.append("\\href{" + RES_PATH + rjr.dir_name +"/report.html}{" + rjr.name + "}")
 
             row.append(str(rjr.uni_num_measures))
-            row.append(f"{rjr.uni_mean_comp_error:.1f}")
-            syndiffix_gap = self.res['SynDiffix'].uni_mean_comp_error - 0
-            this_gap = rjr.uni_mean_comp_error - 0
+            row.append(f"{rjr.uni_median_comp_error:.1f}")
+            syndiffix_gap = self.res['SynDiffix'].uni_median_comp_error - 0
+            this_gap = rjr.uni_median_comp_error - 0
             improve = _fi(this_gap, syndiffix_gap)
             row.append(f"{improve:.1f}x")
 
             row.append(str(rjr.corr_num_measures))
-            row.append(f"{rjr.corr_mean:.4f}")
-            syndiffix_corr_gap = self.res['SynDiffix'].corr_mean - 0
-            this_corr_gap = rjr.corr_mean - 0
+            row.append(f"{rjr.corr_median:.4f}")
+            syndiffix_corr_gap = self.res['SynDiffix'].corr_median - 0
+            this_corr_gap = rjr.corr_median - 0
             corr_improve = _fi(this_corr_gap,  syndiffix_corr_gap)
             row.append(f"{corr_improve:.1f}x")
 
@@ -887,9 +922,9 @@ class GatherResults:
             row.append(f"{statistics.mean(rjr.precision_improvements):.2f}")
             row.append(f"{max(rjr.precision_improvements):.2f}")
             # recall
-            row.append(f"{(rjr.avg_qi_matches / rjr.nrows):.3f}")
+            row.append(f"{(rjr.median_qi_matches / rjr.nrows):.3f}")
             # count
-            row.append(f"{rjr.avg_qi_matches:.1f}")
+            row.append(f"{rjr.median_qi_matches:.1f}")
             body.append(row)
         outPath = os.path.join(self.outDir, 'privTable.tex')
         with open(outPath, 'w') as f:
@@ -916,9 +951,9 @@ class GatherResults:
             f.write(table)
 
     def makeInfoTable(self):
-        header = [" ", "Algorithm", "Tech", "Org", "Cols", "\\thinspace$\\epsilon$\\qquad\\qquad", "Cite", "Repo"]
+        header = [" ", "Algorithm", "Tech", "Org", "Cols", "Weak",  "\\thinspace$\\epsilon$\\qquad\\qquad", "Cite", "Repo"]
         label="tab:infotable"
-        caption="Set of compared algorithms, showing the number of columns synthesized (out of 24). Labels link to the SDNIST report. Algorithms without an epsilon do not use differential privacy. Algorithms without both a repo and citation are proprietary."
+        caption="Set of compared algorithms, showing the number of columns synthesized (out of 24), and whether or not anonymization is weak. Labels link to the SDNIST report. Algorithms without an epsilon do not use differential privacy. Algorithms without both a repo and citation are proprietary."
         body = []
         for alg in keyOrder:
             rjr = self.res[alg]
@@ -928,6 +963,7 @@ class GatherResults:
             row.append(rjr.tech)
             row.append("\\href{" + rjr.web +"}{" + rjr.org + "}")
             row.append(rjr.ncol)
+            row.append('X' if rjr.name in weak_anon else ' ')
             row.append(rjr.epsilon if rjr.epsilon is not None else '')
             row.append("\\cite{" + rjr.cite +"}" if rjr.cite is not None else '')
             row.append("\\href{" + rjr.repo +"}{link}" if rjr.repo is not None else '')
@@ -939,15 +975,16 @@ class GatherResults:
     def makeRegressionPlot(self):
         dataframes = {}
         self.regress_improve = []
-        sd_mean_gap = self.res['SynDiffix'].df_linear_regression['error'].mean() - 0
+        sd_median_gap = self.res['SynDiffix'].df_linear_regression['error'].median() - 0
         for alg in keyOrder:
             rjr = self.res[alg]
-            this_mean_gap = rjr.df_linear_regression['error'].mean() - 0
-            improve = _fi(this_mean_gap, sd_mean_gap)
+            this_median_gap = rjr.df_linear_regression['error'].median() - 0
+            improve = _fi(this_median_gap, sd_median_gap)
             self.regress_improve.append(improve)
             tag = '   ' if improve >= 0 else '* '
             new_label = f"{tag}{alg} ({improve:.1f}x)"
             dataframes[alg] = {'df':rjr.df_linear_regression, 'label':new_label}
+
         plt.figure(figsize=(8, 2.7))
         for alg, stuff in dataframes.items():
             df = stuff['df']
@@ -955,6 +992,22 @@ class GatherResults:
             sns.lineplot(x=df['label'], y=df['error'], color=pltColors[alg], marker=markers[alg], linestyle=dashes[alg], label=label)
         plt.yscale('log')
         plt.xlabel('Race/Sex Group, Percentage of Population')
+        plt.ylabel('Error')
+        plt.xticks(fontsize=6)
+        plt.yticks(fontsize=8)
+        plt.legend(bbox_to_anchor=(1.05,1), loc='upper left', borderaxespad=0, fontsize=7, ncol=2)
+        plt.tight_layout()
+        outPath = os.path.join(self.outDir, 'regression_log.png')
+        plt.savefig(outPath)
+        plt.close()
+
+        plt.figure(figsize=(8, 2.7))
+        for alg, stuff in dataframes.items():
+            df = stuff['df']
+            label = stuff['label']
+            sns.lineplot(x=df['label'], y=df['error'], color=pltColors[alg], marker=markers[alg], linestyle=dashes[alg], label=label)
+        plt.xlabel('Race/Sex Group, Percentage of Population')
+        plt.ylim([0,0.8])
         plt.ylabel('Error')
         plt.xticks(fontsize=6)
         plt.yticks(fontsize=8)
@@ -969,22 +1022,19 @@ class GatherResults:
         for alg in keyOrder:
             rjr = self.res[alg]
             data.append([rjr.name,
-                         statistics.mean(rjr.precision_improvements),
+                         statistics.median(rjr.precision_improvements),
                          max(rjr.precision_improvements),
                          (rjr.avg_qi_matches / rjr.nrows)])
-        df = pd.DataFrame(data, columns=['name','Mean PI','Max PI', 'Coverage'])
+        df = pd.DataFrame(data, columns=['name','Med PI','Max PI', 'Coverage'])
 
         # plot with only the average PIs
         plt.figure(figsize=(8, 4))  # Optional: Set the figure size
         #fig, ax = plt.subplots()
         texts = []
         for i, row in df.iterrows():
-            plt.scatter(row['Coverage'], row['Mean PI'], label=row['name'], s=100, c=pltColors[row['name']], marker=markers[row['name']])
-            if row['Mean PI'] < 0.65 and row['Mean PI'] > 0.53 and row['Coverage'] > 0.03 and row['Coverage'] < 0.065:
-                label = ''
-            else:
-                label = row['name']
-            texts.append(plt.text(row['Coverage'],row['Mean PI'],label))
+            plt.scatter(row['Coverage'], row['Med PI'], label=row['name'], s=100, c=pltColors[row['name']], marker=markers[row['name']])
+            label = row['name']
+            texts.append(plt.text(row['Coverage'],row['Med PI'],label))
         adjust_text(texts)
         #for i, row in df.iterrows():
             #plt.text(row['Coverage'], row['Precision'], row['name'], ha='left', va='bottom')
@@ -999,15 +1049,15 @@ class GatherResults:
         plt.savefig(outPath)
         plt.close()
 
-        # plot with average and maxPIs
+        # plot with median and maxPIs
         plt.figure(figsize=(8, 4))  # Optional: Set the figure size
         #fig, ax = plt.subplots()
         texts = []
         for i, row in df.iterrows():
-            plt.plot([row['Coverage'],row['Coverage']], [row['Max PI'],row['Mean PI']], c=pltColors[row['name']])
-            plt.scatter(row['Coverage'], row['Mean PI'], label=row['name'], s=100, c=pltColors[row['name']], marker=markers[row['name']])
+            plt.plot([row['Coverage'],row['Coverage']], [row['Max PI'],row['Med PI']], c=pltColors[row['name']])
+            plt.scatter(row['Coverage'], row['Med PI'], label=row['name'], s=100, c=pltColors[row['name']], marker=markers[row['name']])
             plt.scatter(row['Coverage'], row['Max PI'], s=100, c=pltColors[row['name']], marker=markers[row['name']])
-            if row['Mean PI'] < 0.65 and row['Mean PI'] > 0.53 and row['Coverage'] > 0.03 and row['Coverage'] < 0.065:
+            if row['Med PI'] < 0.65 and row['Med PI'] > 0.53 and row['Coverage'] > 0.03 and row['Coverage'] < 0.065:
                 label = ''
             else:
                 label = row['name']
@@ -1019,8 +1069,8 @@ class GatherResults:
         plt.axhline(y=0, color='b', linestyle='--')
         plt.axhline(y=0.5, color='black', linestyle=':')
         plt.xlabel('Coverage', fontsize=16)
-        plt.ylabel('Precision Improvement\nMean and Max', fontsize=16)
-        plt.ylim(bottom=-1.0)
+        plt.ylabel('Precision Improvement\nMedian and Max', fontsize=16)
+        plt.ylim(bottom=-0.75)
         plt.legend(loc='lower right', ncol=2, fontsize='small')
         plt.tight_layout()
         outPath = os.path.join(self.outDir, 'attackPrecCovPairs.png')
@@ -1029,17 +1079,17 @@ class GatherResults:
 
     def makeSummaryPlot(self):
         tests = {
-                'Univariate': self.uni_improve,
-                'Correlation': self.corr_improve,
-                '3-Marginal': self.triple_improve,
-                'Regression': self.regress_improve,
-                'PCA': self.pca_improve,
-                'Propensity': self.pmse_improve,
+                'Univariate (1)': self.uni_improve,
+                'Correlation (2)': self.corr_improve,
+                '3-Marginal (3)': self.triple_improve,
+                'Propensity (3)': self.pmse_improve,
+                'Regression (4)': self.regress_improve,
+                'PCA (24)': self.pca_improve,
                 }
         data = {'label':[]}
         dataLog = {'label':[]}
         for alg in keyOrder:
-            if alg == 'SynDiffix':
+            if alg == 'SynDiffix' or alg in skip_method:
                 continue
             data[alg] = []
             dataLog[alg] = []
@@ -1047,7 +1097,7 @@ class GatherResults:
             data['label'].append(test)
             dataLog['label'].append(test)
             for i, alg in enumerate(keyOrder):
-                if alg == 'SynDiffix':
+                if alg == 'SynDiffix' or alg in skip_method:
                     continue
                 data[alg].append(improve[i])
                 if improve[i] < 0:
@@ -1074,10 +1124,10 @@ class GatherResults:
         fig, ax = plt.subplots(figsize=(10, 2.5))
         for alg in df.columns[1:]:  # Exclude the 'label' column
             sns.scatterplot(x=alg, y='label', data=df, color=pltColors[alg], marker=markers[alg], label=alg)
-        ax.set_xscale('log')
         ax.set_xlim([0.3,300])
-        ax.set_xticks([0.5,1,2,3,4,5,10,20,30,50,100,200,300,])
-        ax.set_xticklabels(['1/2x','same','2x','3x','4x','5x','10x','20x','30x','50x','100x','200x','300x',])
+        ax.set_xscale('log')
+        ax.set_xticks([0.333, 0.5,1,2,3,4,5,10,20,30,50,100,200,300,])
+        ax.set_xticklabels(['-3x', '-2x','same','2x','3x','4x','5x','10x','20x','30x','50x','100x','200x','300x',])
         plt.axvline(x=1.0, color='black', linestyle=':')
         ax.set_xlabel('Improvement factor of SynDiffix over other methods', fontsize=14)
         ax.set_ylabel('')
