@@ -518,14 +518,22 @@ def _fi(this, syndiffix):
     # factor of 10000 if otherwise infinity (divide by 0)
     if syndiffix <= this:
         if syndiffix != 0:
-            return this / syndiffix
+            score = this / syndiffix
+            if score > 20:
+                return score, str(int(score)) + 'x'
+            else:
+                return score, str(round(score, 1)) + 'x'
         else:
-            return biggy
+            return biggy, 'inf'
     else:
         if this != 0:
-            return -1 * (syndiffix / this)
+            score = syndiffix / this
+            if score > 20:
+                return -1 * score, str(int(-1 * score)) + 'x'
+            else:
+                return -1 * score, str(round(-1 * score, 1)) + 'x'
         else:
-            return -biggy
+            return -biggy, '-inf'
 
 class GatherResults:
     def __init__(self, resultsDir, outDir):
@@ -538,34 +546,55 @@ class GatherResults:
             rjr = ReportJsonReader(self.resultsDir, dir)
             self.res[rjr.name] = rjr
 
-    def makePcaPlot(self):
+    def _makePcaPmseInconDf(self):
         labels = []
+        pmses = []
+        self.pmse_improve = []
+        self.pmse_improve_str = []
+        incon_count = []
+        self.incon_improve_str = []
         pca_scores = []
         self.pca_improve = []
-        pca_improve = []
+        self.pca_improve_str = []
         for alg in keyOrder:
             rjr = self.res[alg]
             labels.append(alg)
+            pmses.append(rjr.pmse)
+            syndiffix_gap = self.res['SynDiffix'].pmse - 0
+            this_gap = rjr.pmse - 0
+            improve, impStr = _fi(this_gap, syndiffix_gap)
+            self.pmse_improve.append(improve)
+            self.pmse_improve_str.append(impStr)
+            incon_count.append(max(0.1, rjr.inconsistency_count))
+
+            syndiffix_gap = self.res['SynDiffix'].inconsistency_count - 0
+            this_gap = rjr.inconsistency_count - 0
+            improve, impStr = _fi(this_gap, syndiffix_gap)
+            self.incon_improve_str.append(impStr)
+
             pca_scores.append(rjr.pca_score)
             syndiffix_gap = self.res['SynDiffix'].pca_score - 0
             this_gap = rjr.pca_score - 0
-            improve = _fi(this_gap, syndiffix_gap)
+            improve, impStr = _fi(this_gap, syndiffix_gap)
             self.pca_improve.append(improve)
-            if improve == -biggy:
-                improve = '-inf'
-            else:
-                improve = f"{improve:.1f}x"
-            pca_improve.append(improve)
-        fig, ax = plt.subplots(figsize=(6, 4))
+            self.pca_improve_str.append(impStr)
 
         # Create DataFrame for seaborn
         df = pd.DataFrame({
             'labels': labels,
+            'pmses': pmses,
+            'pmse_improve': self.pmse_improve_str,
+            'incon_count': incon_count,
+            'incon_improve': self.incon_improve_str,
             'pca_scores': pca_scores,
-            'pca_improve': pca_improve,
+            'pca_improve': self.pca_improve_str,
         })
+        return df
 
+    def makePcaPlot(self):
+        df = self._makePcaPmseInconDf()
         # Plot PCA scores
+        fig, ax = plt.subplots(figsize=(6, 4))
         barplot0 = sns.barplot(x='pca_scores', y='labels', data=df, palette=pltColors, orient='h', ax=ax)
         if False:
             for i in range(df.shape[0]):
@@ -576,52 +605,68 @@ class GatherResults:
 
         ax2 = ax.twinx()
         ax2.set_ylim(ax.get_ylim())
-        ax2.set_yticks(range(len(pca_improve)))
-        ax2.set_yticklabels(pca_improve)
+        ax2.set_yticks(range(len(self.pca_improve_str)))
+        ax2.set_yticklabels(self.pca_improve_str)
 
         plt.tight_layout()
         outPath = os.path.join(self.outDir, 'pcaScore.png')
         plt.savefig(outPath)
         plt.close()
 
+    def makePmsePcaInconPlot(self):
+        df = self._makePcaPmseInconDf()
+        fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(12, 4))
+        # Plot pmse scores
+        barplot0 = sns.barplot(x='pmses', y='labels', data=df, palette=pltColors, orient='h', ax=axes[0])
+        max_val = df['pmses'].max()
+        for i in range(df.shape[0]):
+            txt = ' ' if df.pmses.iloc[i] == max_val else f"{df.pmses.iloc[i]:0.3f}"
+            barplot0.text(df.pmses.iloc[i] + 0.0, i, txt, color='black', ha="left", va="center")
+        barplot0.set_yticklabels(df.labels)
+        axes[0].set_xlim([0,0.25])
+        axes[0].set_xlabel('PMSE Score', fontsize=14)
+        axes[0].set_ylabel('')
+
+        ax0 = axes[0].twinx()
+        ax0.set_ylim(axes[0].get_ylim())
+        ax0.set_yticks(range(len(self.pmse_improve_str)))
+        ax0.set_yticklabels(self.pmse_improve_str)
+
+        # Plot PCA scores
+        barplot1 = sns.barplot(x='pca_scores', y='labels', data=df, palette=pltColors, orient='h', ax=axes[1])
+        barplot1.set_yticklabels([])
+        axes[1].set_xlabel('PCA Error Score (relative to Sample40)', fontsize=14)
+        axes[1].set_ylabel('')
+
+        ax1 = axes[1].twinx()
+        ax1.set_ylim(axes[1].get_ylim())
+        ax1.set_yticks(range(len(self.pca_improve_str)))
+        ax1.set_yticklabels(self.pca_improve_str)
+
+        # Plot inconsistency scores
+        barplot2 = sns.barplot(x='incon_count', y='labels', data=df, palette=pltColors, orient='h', ax=axes[2])
+        max_val = df['incon_count'].max()
+        for i in range(df.shape[0]):
+            txt = ' ' if df.incon_count.iloc[i] == max_val else int(df.incon_count.iloc[i])
+            barplot2.text(df.incon_count.iloc[i] + 0, i, txt, color='black', ha="left", va="center")
+        barplot2.set_yticklabels([])
+        axes[2].set_xlim([0,14000])
+        axes[2].set_xlabel('Inconsistency Count', fontsize=14)
+        axes[2].set_ylabel('')
+
+        ax2 = axes[2].twinx()
+        ax2.set_ylim(axes[2].get_ylim())
+        ax2.set_yticks(range(len(self.incon_improve_str)))
+        ax2.set_yticklabels(self.incon_improve_str)
+
+        plt.tight_layout()
+        outPath = os.path.join(self.outDir, 'pmsePcaIncon.png')
+        plt.savefig(outPath)
+        plt.close()
+
     def makePmseInconPlot(self):
-        labels = []
-        pmses = []
-        self.pmse_improve = []
-        pmse_improve = []
-        incon_count = []
-        incon_improve = []
-        for alg in keyOrder:
-            rjr = self.res[alg]
-            labels.append(alg)
-            pmses.append(rjr.pmse)
-            syndiffix_gap = self.res['SynDiffix'].pmse - 0
-            this_gap = rjr.pmse - 0
-            improve = _fi(this_gap, syndiffix_gap)
-            self.pmse_improve.append(improve)
-            pmse_improve.append(f"{improve:.1f}x")
-            incon_count.append(max(0.1, rjr.inconsistency_count))
-
-            syndiffix_gap = self.res['SynDiffix'].inconsistency_count - 0
-            this_gap = rjr.inconsistency_count - 0
-            improve = _fi(this_gap, syndiffix_gap)
-            if improve == -biggy:
-                improve = '-inf'
-            else:
-                improve = f"{improve:.1f}x"
-            incon_improve.append(improve)
-
+        df = self._makePcaPmseInconDf()
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
-
-        # Create DataFrame for seaborn
-        df = pd.DataFrame({
-            'labels': labels,
-            'pmses': pmses,
-            'pmse_improve': pmse_improve,
-            'incon_count': incon_count,
-            'incon_improve': incon_improve,
-        })
-
         # Plot pmse scores
         barplot0 = sns.barplot(x='pmses', y='labels', data=df, palette=pltColors, orient='h', ax=axes[0])
         for i in range(df.shape[0]):
@@ -636,8 +681,8 @@ class GatherResults:
 
         ax2 = axes[0].twinx()
         ax2.set_ylim(axes[0].get_ylim())
-        ax2.set_yticks(range(len(pmse_improve)))
-        ax2.set_yticklabels(pmse_improve)
+        ax2.set_yticks(range(len(self.pmse_improve_str)))
+        ax2.set_yticklabels(self.pmse_improve_str)
 
         # Plot inconsistency scores
         barplot1 = sns.barplot(x='incon_count', y='labels', data=df, palette=pltColors, orient='h', ax=axes[1])
@@ -658,8 +703,8 @@ class GatherResults:
 
         ax3 = axes[1].twinx()
         ax3.set_ylim(axes[1].get_ylim())
-        ax3.set_yticks(range(len(incon_improve)))
-        ax3.set_yticklabels(incon_improve)
+        ax3.set_yticks(range(len(self.incon_improve_str)))
+        ax3.set_yticklabels(self.incon_improve_str)
 
         plt.tight_layout()
         outPath = os.path.join(self.outDir, 'pmseIncon.png')
@@ -684,9 +729,9 @@ class GatherResults:
             labels.append(alg)
             corr_values.append(rjr.corr_diffs)
             this_corr_gap = rjr.corr_median - 0
-            corr_improve = _fi(this_corr_gap, syndiffix_corr_gap)
+            corr_improve, impStr = _fi(this_corr_gap, syndiffix_corr_gap)
             self.corr_improve.append(corr_improve)
-            corr_improve_labels.append(f"{corr_improve:.1f}x")
+            corr_improve_labels.append(impStr)
             triple_values.append(rjr.triple_score)
             triple_equivs.append(rjr.sampling_equiv)
             max_col = self.res['SynDiffix'].ncol
@@ -694,9 +739,9 @@ class GatherResults:
             if rjr.ncol == max_col:
                 syndiffix_triple_gap = 1000 - self.res['SynDiffix'].triple_score
                 this_triple_gap = 1000 - rjr.triple_score
-                triple_improve = _fi(this_triple_gap,  syndiffix_triple_gap)
+                triple_improve, impStr = _fi(this_triple_gap,  syndiffix_triple_gap)
                 self.triple_improve.append(triple_improve)
-                triple_improve_labels.append(f"{triple_improve:0.1f}x")
+                triple_improve_labels.append(impStr)
             else:
                 triple_improve_labels.append('  ')
                 self.triple_improve.append(biggy)
@@ -760,9 +805,9 @@ class GatherResults:
             abs_values.append(rjr.uni_abs_error)
             comp_values.append(rjr.uni_comp_error)
             this_gap = rjr.uni_median_comp_error - 0
-            improve = _fi(this_gap, syndiffix_gap)
+            improve, impStr = _fi(this_gap, syndiffix_gap)
             self.uni_improve.append(improve)
-            improve_labels.append(f"{improve:.1f}x")
+            improve_labels.append(impStr)
 
         fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(12, 4))
 
@@ -803,7 +848,7 @@ class GatherResults:
                   "\\multicolumn{2}{c}{PCA Error (\\S\\ref{sec:pca})}",
                   "\\multicolumn{2}{c}{Inconsistencies (\\S\\ref{sec:inconsistencies})}",
                   ]
-        addHeader = " & & pmse & imp & err & imp & count & imp \\\\"
+        addHeader = " & & pmse & IF & err & IF & count & IF \\\\"
         alignReplace = ['llllllll', 'llr@{\hskip 6pt}r@{\hskip 14pt}r@{\hskip 6pt}r@{\hskip 14pt}rr']
         label="tab:pmse"
         caption="Summary table for Propensity MSE, PCA Error, and Inconsistencies."
@@ -817,28 +862,20 @@ class GatherResults:
             row.append(f"{rjr.pmse:.4f}")
             syndiffix_gap = self.res['SynDiffix'].pmse - 0
             this_gap = rjr.pmse - 0
-            improve = _fi(this_gap, syndiffix_gap)
-            row.append(f"{improve:.1f}x")
+            improve, impStr = _fi(this_gap, syndiffix_gap)
+            row.append(impStr)
 
             row.append(f"{rjr.pca_score:4f}")
             syndiffix_gap = self.res['SynDiffix'].pca_score - 0
             this_gap = rjr.pca_score - 0
-            improve = _fi(this_gap, syndiffix_gap)
-            if improve == -biggy:
-                improve = '-inf'
-            else:
-                improve = f"{improve:.1f}x"
-            row.append(improve)
+            improve, impStr = _fi(this_gap, syndiffix_gap)
+            row.append(impStr)
 
             row.append(f"{rjr.inconsistency_count}")
             syndiffix_gap = self.res['SynDiffix'].inconsistency_count - 0
             this_gap = rjr.inconsistency_count - 0
-            improve = _fi(this_gap, syndiffix_gap)
-            if improve == -biggy:
-                improve = '-inf'
-            else:
-                improve = f"{improve:.1f}x"
-            row.append(improve)
+            improve, impStr = _fi(this_gap, syndiffix_gap)
+            row.append(impStr)
 
             body.append(row)
         outPath = os.path.join(self.outDir, 'pmseTable.tex')
@@ -846,6 +883,7 @@ class GatherResults:
             table = pytextable.tostring(body, header=header, label=label, caption=caption,alignment='l')
             table = table.replace(alignReplace[0], alignReplace[1])
             table = table.replace("\midrule", '\n' + addHeader + '\n' + "\midrule")
+            table = table.replace("\\begin{tabular}", "\\small\n    \\begin{tabular}")
             f.write(table)
 
     def makeAccuracyTable(self):
@@ -854,7 +892,7 @@ class GatherResults:
                   "\\multicolumn{3}{c}{Correlation (\\S\\ref{sec:pairs})}",
                   "\\multicolumn{4}{c}{3-marginals (\\S\\ref{sec:triples})}",
                   ]
-        addHeader = " & & N & med & imp & N & med & imp & score & imp & samp & imp \\\\"
+        addHeader = " & & N & med & IF & N & med & IF & score & IF & samp & IF \\\\"
         alignReplace = ['llllllllllll', 'llrlr@{\hskip 10pt}r@{\hskip 6pt}l@{\hskip 6pt}r@{\hskip 10pt}r@{\hskip 6pt}r@{\hskip 6pt}r@{\hskip 6pt}r']
         label="tab:accuracy"
         caption="Summary table for low-dimensional accuracy measures."
@@ -869,15 +907,15 @@ class GatherResults:
             row.append(f"{rjr.uni_median_comp_error:.1f}")
             syndiffix_gap = self.res['SynDiffix'].uni_median_comp_error - 0
             this_gap = rjr.uni_median_comp_error - 0
-            improve = _fi(this_gap, syndiffix_gap)
-            row.append(f"{improve:.1f}x")
+            improve, impStr = _fi(this_gap, syndiffix_gap)
+            row.append(impStr)
 
             row.append(str(rjr.corr_num_measures))
             row.append(f"{rjr.corr_median:.4f}")
             syndiffix_corr_gap = self.res['SynDiffix'].corr_median - 0
             this_corr_gap = rjr.corr_median - 0
-            corr_improve = _fi(this_corr_gap,  syndiffix_corr_gap)
-            row.append(f"{corr_improve:.1f}x")
+            corr_improve, impStr = _fi(this_corr_gap,  syndiffix_corr_gap)
+            row.append(impStr)
 
             row.append(rjr.triple_score)
             max_col = self.res['SynDiffix'].ncol
@@ -885,15 +923,15 @@ class GatherResults:
             if rjr.ncol == max_col:
                 syndiffix_triple_gap = 1000 - self.res['SynDiffix'].triple_score
                 this_triple_gap = 1000 - rjr.triple_score
-                triple_improve = _fi(this_triple_gap,  syndiffix_triple_gap)
-                row.append(f"{triple_improve:0.1f}x")
+                triple_improve, impStr = _fi(this_triple_gap,  syndiffix_triple_gap)
+                row.append(impStr)
             else:
                 row.append(' ')
             row.append(f"{rjr.sampling_equiv}\%")
             syndiffix_samp_gap = 100 - self.res['SynDiffix'].sampling_equiv
             this_samp_gap = 100 - rjr.sampling_equiv
-            samp_improve = _fi(this_samp_gap,  syndiffix_samp_gap)
-            row.append(f"{samp_improve:0.1f}x")
+            samp_improve, impStr = _fi(this_samp_gap,  syndiffix_samp_gap)
+            row.append(impStr)
 
             body.append(row)
         outPath = os.path.join(self.outDir, 'accTable.tex')
@@ -901,12 +939,13 @@ class GatherResults:
             table = pytextable.tostring(body, header=header, label=label, caption=caption,alignment='l')
             table = table.replace(alignReplace[0], alignReplace[1])
             table = table.replace("\midrule", '\n' + addHeader + '\n' + "\midrule")
+            table = table.replace("\\begin{tabular}", "\\small\n    \\begin{tabular}")
             f.write(table)
 
     def makePrivacyTable(self):
         header = [" "," ", "\\multicolumn{2}{c}{Full Match (\\S\\ref{sec:privacy})}",  "\\multicolumn{4}{c}{QI Match (\\S\\ref{sec:privacy})}",]
-        addHeader = " & & count & \\quad \% & avg PI & max PI & cov & count \\\\"
-        alignReplace = ['llllllll', 'llrl@{\hskip 14pt}r@{\hskip 6pt}l@{\hskip 6pt}rr']
+        addHeader = " & & count & \\quad \% & med PI & max PI & cov & count \\\\"
+        alignReplace = ['llllllll', 'llrr@{\hskip 14pt}r@{\hskip 6pt}l@{\hskip 6pt}rr']
         label="tab:privacy"
         caption="Summary table for privacy measures."
         body = []
@@ -931,29 +970,41 @@ class GatherResults:
             table = pytextable.tostring(body, header=header, label=label, caption=caption,alignment='l')
             table = table.replace(alignReplace[0], alignReplace[1])
             table = table.replace("\midrule", '\n' + addHeader + '\n' + "\midrule")
+            table = table.replace("\\begin{tabular}", "\\small\n    \\begin{tabular}")
             f.write(table)
 
     def makeBaselinesTable(self):
-        header = ["Col", "Base",]
-        alignReplace = ['ll', 'rr']
-        body = []
         with open('baselines.json', 'r') as f:
             baselines = json.load(f)
-        for col, baseline in baselines.items():
-            row = []
-            row.append(str(col))
-            row.append(f"{baseline:.2f}")
-            body.append(row)
+        table = '''
+            \\begin{table}
+                \centering
+                \\begin{tabular}{rl@{\\hskip 3pt}|@{\\hskip 3pt}rl@{\\hskip 3pt}|@{\\hskip 3pt}rl@{\\hskip 3pt}|@{\\hskip 3pt}rl}
+                \\toprule
+        '''
+        td = [list(x) for x in zip(list(baselines.keys()), list(baselines.values()))]
+        td.sort(key=lambda x: x[1])
+        for i in range(len(td)):
+            td[i][0] = td[i][0].replace('_','\\_')
+        for i in range(0,len(td),4):
+            table += f'''
+                {td[i][0]} & {td[i][1]:.2f} & {td[i+1][0]} & {td[i+1][1]:.2f} &  {td[i+2][0]} & {td[i+2][1]:.2f} & {td[i+3][0]} & {td[i+3][1]:.2f} \\\\ 
+            '''
+        table += '''
+            \\bottomrule
+            \end{tabular}
+               \caption{Baseline Inference Precision}
+            \label{tab:baselines}
+            \end{table}
+        '''
         outPath = os.path.join(self.outDir, 'baselines.tex')
         with open(outPath, 'w') as f:
-            table = pytextable.tostring(body, header=header, alignment='l')
-            table = table.replace(alignReplace[0], alignReplace[1])
             f.write(table)
 
     def makeInfoTable(self):
-        header = [" ", "Algorithm", "Tech", "Org", "Cols", "Weak",  "\\thinspace$\\epsilon$\\qquad\\qquad", "Cite", "Repo"]
+        header = [" ", "Technique", "Tech", "Org", "Cols", "Weak",  "\\thinspace$\\epsilon$\\qquad\\qquad", "Cite", "Repo"]
         label="tab:infotable"
-        caption="Set of compared algorithms, showing the number of columns synthesized (out of 24), and whether or not anonymization is weak. Labels link to the SDNIST report. Algorithms without an epsilon do not use differential privacy. Algorithms without both a repo and citation are proprietary."
+        caption="Set of compared techniques, showing the number of columns synthesized (out of 24), and whether or not anonymization is weak. Technique labels link to the SDNIST report. Techniques without an epsilon do not use differential privacy. Techniques without both a repo and citation are proprietary."
         body = []
         for alg in keyOrder:
             rjr = self.res[alg]
@@ -979,10 +1030,10 @@ class GatherResults:
         for alg in keyOrder:
             rjr = self.res[alg]
             this_median_gap = rjr.df_linear_regression['error'].median() - 0
-            improve = _fi(this_median_gap, sd_median_gap)
+            improve, impStr = _fi(this_median_gap, sd_median_gap)
             self.regress_improve.append(improve)
             tag = '   ' if improve >= 0 else '* '
-            new_label = f"{tag}{alg} ({improve:.1f}x)"
+            new_label = f"{tag}{alg} ({impStr})"
             dataframes[alg] = {'df':rjr.df_linear_regression, 'label':new_label}
 
         plt.figure(figsize=(8, 2.7))
@@ -1082,8 +1133,8 @@ class GatherResults:
                 'Univariate (1)': self.uni_improve,
                 'Correlation (2)': self.corr_improve,
                 '3-Marginal (3)': self.triple_improve,
-                'Propensity (3)': self.pmse_improve,
                 'Regression (4)': self.regress_improve,
+                'Propensity (var)': self.pmse_improve,
                 'PCA (24)': self.pca_improve,
                 }
         data = {'label':[]}
@@ -1108,11 +1159,11 @@ class GatherResults:
         fig, ax = plt.subplots(figsize=(10, 2.5))
         for alg in df.columns[1:]:  # Exclude the 'label' column
             sns.scatterplot(x=alg, y='label', data=df, color=pltColors[alg], marker=markers[alg], label=alg)
-        ax.set_xlim([-3,15])
+        ax.set_xlim([-2,15])
         plt.axvline(x=1.0, color='black', linestyle=':')
         plt.axvline(x=-1.0, color='black', linestyle=':')
         ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"{int(y)}x"))
-        ax.set_xlabel('Improvement factor of SynDiffix over other methods', fontsize=14)
+        ax.set_xlabel('Improvement factor of SynDiffix over other techniques', fontsize=14)
         ax.set_ylabel('')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1), ncol=2, fontsize='small')  # Place legend to the right
         outPath = os.path.join(self.outDir, 'summaryPlot.png')
@@ -1124,12 +1175,12 @@ class GatherResults:
         fig, ax = plt.subplots(figsize=(10, 2.5))
         for alg in df.columns[1:]:  # Exclude the 'label' column
             sns.scatterplot(x=alg, y='label', data=df, color=pltColors[alg], marker=markers[alg], label=alg)
-        ax.set_xlim([0.3,300])
+        ax.set_xlim([0.4,300])
         ax.set_xscale('log')
-        ax.set_xticks([0.333, 0.5,1,2,3,4,5,10,20,30,50,100,200,300,])
-        ax.set_xticklabels(['-3x', '-2x','same','2x','3x','4x','5x','10x','20x','30x','50x','100x','200x','300x',])
+        ax.set_xticks([0.5,1,2,3,4,5,10,20,30,50,100,200,300,])
+        ax.set_xticklabels(['-2x','same','2x','3x','4x','5x','10x','20x','30x','50x','100x','200x','300x',])
         plt.axvline(x=1.0, color='black', linestyle=':')
-        ax.set_xlabel('Improvement factor of SynDiffix over other methods', fontsize=14)
+        ax.set_xlabel('Improvement factor of SynDiffix over other techniques', fontsize=14)
         ax.set_ylabel('')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1), ncol=2, fontsize='small')  # Place legend to the right
         outPath = os.path.join(self.outDir, 'summaryPlotLog.png')
@@ -1186,6 +1237,7 @@ class GatherResults:
 
 if __name__ == "__main__":
     gr = GatherResults('results', 'outputs')
+    gr.makeBaselinesTable()
     gr.makePcaGrid()
     gr.makeRegressionPlot()
     gr.makeInfoTable()
@@ -1195,8 +1247,16 @@ if __name__ == "__main__":
     gr.makeAttackScatter()
     gr.makeUniPlot()
     gr.makePairTriplePlot()
-    gr.makeBaselinesTable()
     gr.makePmseInconPlot()
     gr.makePcaPlot()
-    # this must be last:
+    gr.makePmsePcaInconPlot()
+    # makeSummaryPlot must be last:
     gr.makeSummaryPlot()
+    print("Baseline stats:")
+    with open('baselines.json', 'r') as f:
+        baselines_all = json.load(f)
+    baselines = list(baselines_all.values())
+    print("Max:", max(baselines))
+    print("Min:", min(baselines))
+    print("Avg:", statistics.mean(baselines))
+    print("StdDev:", statistics.stdev(baselines))

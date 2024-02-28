@@ -70,7 +70,6 @@ if __name__ == "__main__":
         test_cols = quasi_identifiers + [target]
         cats = quasi_identifiers.copy()
         nums = []
-        #targetType = 'num' if target in numCols else 'cat'
         targetType = 'cat'
         df = df_all[test_cols]
         X = df.drop(target, axis=1)
