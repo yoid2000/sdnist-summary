@@ -676,7 +676,14 @@
                 "pca/target_highlighted_MSP/MSP_N.png",
                 "pca/deidentified_highlighted_MSP/MSP_N.png"
             ]
-        }
+        },
+	"ks_scores": [
+            0.00572414046160058,
+            0.006201152166733892,
+            0.008843063149011066,
+            0.00543059479690311,
+            0.007558800865959725
+        ]
     },
     "inconsistencies": {
         "age": {

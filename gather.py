@@ -364,20 +364,14 @@ class ReportJsonReader:
         self._get_pca_stats()
 
     def _get_pca_stats(self):
-        # The image compare stuff is slow, so we want to save and reuse prior
-        # computations.
-        #syn_path = self.algData['pca']['deidentified_all_components_plot']
-        #orig_path = self.algData['pca']['target_all_components_plot']
+        self.ks_scores = self.algData['pca']['ks_scores']
+        self.pca_score = statistics.mean(self.ks_scores)
+        self.pca_label = f"{self.name}, {self.pca_score:.4f}"
+        # copy the corresponding images to the outputs
         syn_path = self.algData['pca']['highlighted_plots']['MSP-MSP_N-Children (AGEP < 15)'][1]
         orig_path = self.algData['pca']['highlighted_plots']['MSP-MSP_N-Children (AGEP < 15)'][0]
         syn_path = os.path.join(self.dirPath, syn_path)
         orig_path = os.path.join(self.dirPath, orig_path)
-        if self.ncol == 24:
-            ic = ImageCompare('same', orig_path, orig_path)
-        ic = ImageCompare(self.name, orig_path, syn_path)
-        self.pca_score = ic.get_score(self.name)
-        self.pca_label = f"{self.name}, {self.pca_score:.4f}"
-        # copy the corresponding images to the outputs
         syn_to_name = f"z_{self.name}.syn.png"
         syn_to_path = os.path.join('outputs', syn_to_name)
         shutil.copy(syn_path, syn_to_path)
