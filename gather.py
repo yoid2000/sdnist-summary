@@ -212,7 +212,7 @@ pltColors = {
     "K6-Anon": "coral",
     "PRAM": "gold",
     "SMOTE": "tan",
-    "Sample40": "indigo",
+    "Sample40": "tan",
 }
 
 dashes = {
@@ -252,7 +252,7 @@ latexColors = {
     "K6-Anon": "Salmon",
     "PRAM": "Goldenrod",
     "SMOTE": "Tan",
-    "Sample40": "Sepia",
+    "Sample40": "Tan",
 }
 
 markers = {
@@ -540,6 +540,13 @@ class GatherResults:
             rjr = ReportJsonReader(self.resultsDir, dir)
             self.res[rjr.name] = rjr
 
+    def my_savefig(self, plt, base_name):
+        outPath = os.path.join(self.outDir, 'png', base_name+'.png')
+        plt.savefig(outPath)
+        outPath = os.path.join(self.outDir, 'pdf', base_name+'.pdf')
+        plt.savefig(outPath)
+        plt.close()
+    
     def _makePcaPmseInconDf(self):
         labels = []
         pmses = []
@@ -594,7 +601,7 @@ class GatherResults:
             for i in range(df.shape[0]):
                 barplot0.text(df.pca_scores.iloc[i] + 0.0, i, f"{df.pca_scores.iloc[i]:0.3f}", color='black', ha="left", va="center")
         barplot0.set_yticklabels(df.labels)
-        ax.set_xlabel('PCA Error Score (relative to Sample40)', fontsize=14)
+        ax.set_xlabel('PCA Error Score', fontsize=14)
         ax.set_ylabel('')
 
         ax2 = ax.twinx()
@@ -603,9 +610,7 @@ class GatherResults:
         ax2.set_yticklabels(self.pca_improve_str)
 
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'pcaScore.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'pcaScore')
 
     def makePmsePcaInconPlot(self):
         df = self._makePcaPmseInconDf()
@@ -629,7 +634,7 @@ class GatherResults:
         # Plot PCA scores
         barplot1 = sns.barplot(x='pca_scores', y='labels', data=df, palette=pltColors, orient='h', ax=axes[1])
         barplot1.set_yticklabels([])
-        axes[1].set_xlabel('PCA Error Score (relative to Sample40)', fontsize=14)
+        axes[1].set_xlabel('PCA Error Score', fontsize=14)
         axes[1].set_ylabel('')
 
         ax1 = axes[1].twinx()
@@ -654,9 +659,7 @@ class GatherResults:
         ax2.set_yticklabels(self.incon_improve_str)
 
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'pmsePcaIncon.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'pmsePcaIncon')
 
     def makePmseInconPlot(self):
         df = self._makePcaPmseInconDf()
@@ -701,9 +704,7 @@ class GatherResults:
         ax3.set_yticklabels(self.incon_improve_str)
 
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'pmseIncon.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'pmseIncon')
 
     def makePairTriplePlot(self):
         labels = []
@@ -782,9 +783,7 @@ class GatherResults:
         ax3.set_yticklabels(triple_improve_labels)
 
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'pairTripleStats.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'pairTripleStats')
 
     def makeUniPlot(self):
         labels = []
@@ -832,9 +831,7 @@ class GatherResults:
         axes[1].xaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
 
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'uniStats.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'uniStats')
 
     def makePmseTable(self):
         header = [" "," ",
@@ -842,7 +839,7 @@ class GatherResults:
                   "\\multicolumn{2}{c}{PCA Error (\\S\\ref{sec:pca})}",
                   "\\multicolumn{2}{c}{Inconsistencies (\\S\\ref{sec:inconsistencies})}",
                   ]
-        addHeader = " & & pmse & IF & err & IF & count & IF \\\\"
+        addHeader = " & & pmse & IF & ks-score & IF & count & IF \\\\"
         alignReplace = ['llllllll', 'llr@{\hskip 6pt}r@{\hskip 14pt}r@{\hskip 6pt}r@{\hskip 14pt}rr']
         label="tab:pmse"
         caption="Summary table for Propensity MSE, PCA Error, and Inconsistencies."
@@ -859,7 +856,7 @@ class GatherResults:
             improve, impStr = _fi(this_gap, syndiffix_gap)
             row.append(impStr)
 
-            row.append(f"{rjr.pca_score:4f}")
+            row.append(f"{rjr.pca_score:.4f}")
             syndiffix_gap = self.res['SynDiffix'].pca_score - 0
             this_gap = rjr.pca_score - 0
             improve, impStr = _fi(this_gap, syndiffix_gap)
@@ -1042,9 +1039,7 @@ class GatherResults:
         plt.yticks(fontsize=8)
         plt.legend(bbox_to_anchor=(1.05,1), loc='upper left', borderaxespad=0, fontsize=7, ncol=2)
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'regression_log.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'regression_log')
 
         plt.figure(figsize=(8, 2.7))
         for alg, stuff in dataframes.items():
@@ -1058,9 +1053,7 @@ class GatherResults:
         plt.yticks(fontsize=8)
         plt.legend(bbox_to_anchor=(1.05,1), loc='upper left', borderaxespad=0, fontsize=7, ncol=2)
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'regression.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'regression')
 
     def makeAttackScatter(self):
         data = []
@@ -1090,9 +1083,7 @@ class GatherResults:
         plt.ylabel('Avg Precision Improvement', fontsize=16)
         plt.legend(loc='lower right', ncol=2, fontsize='small')
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'attackPrecCov.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'attackPrecCov')
 
         # plot with median and maxPIs
         plt.figure(figsize=(8, 4))  # Optional: Set the figure size
@@ -1118,9 +1109,7 @@ class GatherResults:
         plt.ylim(bottom=-0.75)
         plt.legend(loc='lower right', ncol=2, fontsize='small')
         plt.tight_layout()
-        outPath = os.path.join(self.outDir, 'attackPrecCovPairs.png')
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'attackPrecCovPairs')
 
     def makeSummaryPlot(self):
         tests = {
@@ -1153,7 +1142,7 @@ class GatherResults:
         fig, ax = plt.subplots(figsize=(10, 2.5))
         for alg in df.columns[1:]:  # Exclude the 'label' column
             sns.scatterplot(x=alg, y='label', data=df, color=pltColors[alg], marker=markers[alg], label=alg)
-        ax.set_xlim([-2,15])
+        ax.set_xlim([-6,15])
         plt.axvline(x=1.0, color='black', linestyle=':')
         plt.axvline(x=-1.0, color='black', linestyle=':')
         ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: f"{int(y)}x"))
@@ -1161,26 +1150,22 @@ class GatherResults:
         ax.set_ylabel('')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1), ncol=2, fontsize='small')  # Place legend to the right
         outPath = os.path.join(self.outDir, 'summaryPlot.png')
-        plt.tight_layout()
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'summaryPlot')
 
         df = pd.DataFrame(dataLog)
         fig, ax = plt.subplots(figsize=(10, 2.5))
         for alg in df.columns[1:]:  # Exclude the 'label' column
             sns.scatterplot(x=alg, y='label', data=df, color=pltColors[alg], marker=markers[alg], label=alg)
-        ax.set_xlim([0.4,300])
+        ax.set_xlim([0.3,300])
         ax.set_xscale('log')
-        ax.set_xticks([0.5,1,2,3,4,5,10,20,30,50,100,200,300,])
-        ax.set_xticklabels(['-2x','same','2x','3x','4x','5x','10x','20x','30x','50x','100x','200x','300x',])
+        ax.set_xticks([0.333, 0.5,1,2,3,4,5,10,20,30,50,100,200,300,])
+        ax.set_xticklabels(['-3x','-2x','same','2x','3x','4x','5x','10x','20x','30x','50x','100x','200x','300x',])
         plt.axvline(x=1.0, color='black', linestyle=':')
         ax.set_xlabel('Improvement factor of SynDiffix over other techniques', fontsize=14)
         ax.set_ylabel('')
         ax.legend(loc='upper left', bbox_to_anchor=(1, 1), ncol=2, fontsize='small')  # Place legend to the right
-        outPath = os.path.join(self.outDir, 'summaryPlotLog.png')
         plt.tight_layout()
-        plt.savefig(outPath)
-        plt.close()
+        self.my_savefig(plt, 'summaryPlotLog')
 
     def _makeOneGridLine(self, images, captions, n):
         line = ''
@@ -1206,7 +1191,7 @@ class GatherResults:
 \\begin{tabular}{@{} M{0.166\\textwidth} M{0.166\\textwidth} | M{0.166\\textwidth} M{0.166\\textwidth} | M{0.166\\textwidth} M{0.166\\textwidth} @{}}
 '''
         end = '''    \\end{tabular}
-\\caption{Original (left) and synthetic (right) scatterplot and error score for one principal component, ordered by most-to-least accurate.}
+\\caption{Original (left) and synthetic (right) scatterplot and average Kolmogorov-Smirnov score for all principle components, ordered by most-to-least accurate.}
 \\label{fig:pca_grid}
 \\end{figure}'''
         # put the images in order, best to worst
